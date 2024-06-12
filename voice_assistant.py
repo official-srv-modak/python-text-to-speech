@@ -2,12 +2,13 @@ import threading
 import subprocess
 from text_speech_module import recognise_speech, text_to_speech
 
+model = "phi3"
 class Assistant(object):
     def __init__(self):
         self.running = True
         self.count = 1
         self.process = subprocess.Popen(
-            ["ollama", "run", "llama3"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            ["ollama", "run", model], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     def run_assistant(self, text):
         # Provide input
@@ -24,7 +25,7 @@ class Assistant(object):
         error_str = error.decode('utf-8')
 
         # Print the output and error
-        print("Output of command:", ["ollama", "run", "llama3"])
+        print("Output of command:", ["ollama", "run", model])
         output_text = output_str.strip()
         print("Output:", output_text)
         text_to_speech(output_text)
